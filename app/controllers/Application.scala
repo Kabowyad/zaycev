@@ -7,9 +7,12 @@ object Application extends Controller {
 
   def javascriptRoutes = Action { implicit request =>
     Ok(Routes.javascriptRouter("jsRoutes")(
-      routes.javascript.
-    )
-    )
+      routes.javascript.Build.build
+    )).as("text/javascript")
+  }
+
+  def index = Action {implicit  request =>
+    Ok(views.html.index(""))
   }
 
 }
