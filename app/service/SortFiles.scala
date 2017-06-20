@@ -9,7 +9,7 @@ import entities.File
 // interface
 trait SortFilesComponent { // exrpessing dependency
   trait SortFiles { // Interface exposed to File
-    def sort(): List[File]
+    def sort(input: String): List[File]
   }
 
   val sortFiles: SortFiles // way to obtain dependency
@@ -19,8 +19,8 @@ trait SortFilesComponentImpl extends SortFilesComponent {
   self: DiskReaderComponent =>
 
   override val sortFiles: SortFiles = new SortFiles {
-    override def sort(): List[File] = {
-      val strings = diskReader.read().split("\\n")
+    override def sort(input: String): List[File] = {
+      val strings = input.split("\\n")
             val size = strings.size
             var list = List[File]()
             for (i <- 1 to size) {
