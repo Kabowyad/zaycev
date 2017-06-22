@@ -1,7 +1,10 @@
-@(message: String)
+@import entities.File
+@(fileList: Array[File])
 
 @main("Welcome to Play") {
 
-    @play20.welcome(message)
+    @for(file <- fileList) {
+        <p>@file.name @file.size</p>
+    }
 
 }

@@ -15,7 +15,7 @@ trait DiskReaderComponent {  //Expressing dependency
 
 trait DiskReaderComponentImpl extends DiskReaderComponent {
   override val diskReader : DiskReader = new DiskReader {
-    val cdCommand = "ls -s /~"!!
+    def cdCommand = Seq("ls", "-s", "/home/yan").!!
 
     override def read(): String = {
       cdCommand
