@@ -6,7 +6,7 @@ import sys.process._
   */
 //Interface
 trait DiskReaderComponent {  //Expressing dependency
-  val diskReader: DiskReader // Way to obtain dependency
+  def diskReader: DiskReader // Way to obtain dependency
 
   trait DiskReader { // Interface exposes to
     def read(): String
@@ -14,12 +14,12 @@ trait DiskReaderComponent {  //Expressing dependency
 }
 
 trait DiskReaderComponentImpl extends DiskReaderComponent {
-  override val diskReader : DiskReader = new DiskReader {
-    def cdCommand = Seq("ls", "-s", "/home/yan").!!
+  def cdCommand = Seq("ls", "-s", "/home/yan").!!
+  def diskReader = new DiskReader()
 
-    override def read(): String = {
-      cdCommand
-    }
+  class DiskReader() extends DiskReader {
+    def read = cdCommand
   }
+
 }
 

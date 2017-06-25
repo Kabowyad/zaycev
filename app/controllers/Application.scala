@@ -9,8 +9,9 @@ object real extends SortFilesComponentImpl with DiskReaderComponentImpl
 
 object Application extends Controller {
 
-  val sortFiles = real sortFiles
-  val diskReader = real diskReader
+  val serviceComponent = new SortFilesComponentImpl with DiskReaderComponentImpl{}
+
+  val service = serviceComponent.sortFiles
 
   def javascriptRoutes = Action { implicit request =>
     Ok(Routes.javascriptRouter("jsRoutes")(
@@ -18,7 +19,7 @@ object Application extends Controller {
   }
 
   def index = Action { request =>
-    Ok(sortFiles.sort(diskReader.read()).mkString("\n"))
+    Ok(service.sort().mkString("\n"))
   }
 
 }
