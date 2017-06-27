@@ -3,11 +3,14 @@ package controllers
 import play.api._
 import play.api.mvc._
 import play.twirl.api.Html
-import service.{DiskReaderComponentImpl, DiskReaders, SortFilesFromDiskImpl, SortersFiles}
+import service._
 
+//object Application extends Application(DiskReaderImpl)
 
-object Application extends Controller with DiskReaders with DiskReaderComponentImpl
-with SortersFiles with SortFilesFromDiskImpl{
+object Application extends Application with DiskReaderComponentImpl with SortFilesFromDiskImpl
+
+class Application extends Controller {
+  self:  DiskReaderComponent with SortFilesComponent =>
 
   def javascriptRoutes = Action { implicit request =>
     Ok(Routes.javascriptRouter("jsRoutes")(
@@ -15,7 +18,7 @@ with SortersFiles with SortFilesFromDiskImpl{
   }
 
   def index = Action { request =>
-    Ok(sortFilesFromDisk(readFromDisk).mkString("\\n"))
+    Ok(sortFiles.sort(diskReader.read()).mkString("\\n"))
   }
-
 }
+
