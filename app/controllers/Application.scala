@@ -16,7 +16,6 @@ class Application extends Controller {
     Ok(Routes.javascriptRouter("jsRoutes")(
     )).as("text/javascript")
   }
-
   def index = Action { request =>
     Ok(sortFiles.sort(diskReader.read()).mkString("\\n"))
   }
